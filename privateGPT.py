@@ -41,19 +41,35 @@ def main():
             raise Exception(f"Model type {model_type} is not supported. Please choose one of the following: LlamaCpp, GPT4All")
         
     qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, return_source_documents= not args.hide_source)
+
+    context = ""
+
     # Interactive questions and answers
     while True:
         query = input("\nEnter a query: ")
         if query == "exit":
             break
+        if query in ["clear", "cls"]:
+            context = ""
+            os.system('cls')
+            continue
         if query.strip() == "":
             continue
+
+        # loading context of the conversation back into query to have continuety
+        if context is not None:
+            query = context + query
+
+        print("DEBUG: \n" + query)
 
         # Get the answer from the chain
         start = time.time()
         res = qa(query)
         answer, docs = res['result'], [] if args.hide_source else res['source_documents']
         end = time.time()
+
+        # saving context of conversation for continuety
+        context = query + "\n\n" + answer + "\n\n"
 
         # Print the result
         print("\n\n> Question:")
