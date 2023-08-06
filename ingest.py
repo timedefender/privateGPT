@@ -5,6 +5,7 @@ from typing import List
 from dotenv import load_dotenv
 from multiprocessing import Pool
 from tqdm import tqdm
+import json_loader
 
 from langchain.document_loaders import (
     CSVLoader,
@@ -77,6 +78,7 @@ LOADER_MAPPING = {
     ".ppt": (UnstructuredPowerPointLoader, {}),
     ".pptx": (UnstructuredPowerPointLoader, {}),
     ".txt": (TextLoader, {"encoding": "utf8"}),
+    ".json": (json_loader.JSONLoader, {}),
     # Add more mappings for other file extensions and loaders as needed
 }
 
