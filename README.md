@@ -148,3 +148,13 @@ If so set your archflags during pip install. eg: _ARCHFLAGS="-arch x86_64" pip3 
 
 # Disclaimer
 This is a test project to validate the feasibility of a fully private solution for question answering using LLMs and Vector embeddings. It is not production ready, and it is not meant to be used in production. The models selection is not optimized for performance, but for privacy; but it is possible to use different models and vectorstores to improve performance.
+
+# TODO
+
+- <input type="checkbox" checked disabled /> Add capability to run on GPU
+- <input type="checkbox" /> Add capability to use external tools such as search etc.
+- <input type="checkbox" /> Add capability to load individual documents
+- <input type="checkbox" /> Add capability to remember conversations persistently and with timestamps.
+- <input type="checkbox" /> Add capability to use OpenAI API
+- <input type="checkbox" /> Add capability to use other LLMs
+- <input type="checkbox" /> Create web UI

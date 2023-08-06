@@ -8,6 +8,15 @@ from langchain.llms import GPT4All, LlamaCpp
 import os
 import argparse
 import time
+import torch
+
+def run_on_gpu(model):
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+        model.to(device)
+        print("Model is running on GPU")
+    else:
+        print("Model is running on CPU")
 
 load_dotenv()
 
@@ -40,6 +49,7 @@ def main():
             # raise exception if model_type is not supported
             raise Exception(f"Model type {model_type} is not supported. Please choose one of the following: LlamaCpp, GPT4All")
         
+    run_on_gpu(llm)
     qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, return_source_documents= not args.hide_source)
 
     context = ""
@@ -60,7 +70,7 @@ def main():
         if context is not None:
             query = context + query
 
-        print("DEBUG: \n" + query)
+        #print("DEBUG: \n" + query)
 
         # Get the answer from the chain
         start = time.time()
